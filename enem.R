@@ -1,0 +1,46 @@
+#!/usr/bin/env Rscript
+
+# Função segura para descobrir caminho base
+get_script_path <- function() {
+  args_full <- commandArgs(trailingOnly = FALSE)
+  file_arg <- "--file="
+  script_path <- sub(file_arg, "", args_full[grep(file_arg, args_full)])
+  if (length(script_path) == 0) return(".")
+  normalizePath(dirname(script_path))
+}
+
+dir_base <- get_script_path()
+
+# Carrega sources
+source(file.path(dir_base, "conf", "config.R"))
+source(file.path(dir_base, "lib", "comandos.R"))
+source(file.path(dir_base, "lib", "desvioPadrao.R"))
+source(file.path(dir_base, "lib", "amostra.R"))
+source(file.path(dir_base, "lib", "sumario.R"))
+source(file.path(dir_base, "lib", "modelo.R"))
+
+# Ações conforme o comando
+if (comando == "sample") {
+  if (!is.null(flags[["-f"]])) {
+    if(!is.null(flags[["-p"]])){
+      amostra(file.path(path_data, flags[["-f"]]), flags[["-p"]])
+    }else{
+      amostra(file.path(path_data, flags[["-f"]]))
+    }
+  } else {
+    stop("Uso: sample -f <arquivo> -p <percentual>")
+  }
+} else if (comando == "sd") {
+  if (!is.null(flags[["-v"]])) {
+    variaveis <- strsplit(flags[["-v"]], ",")[[1]]
+    desvio_padrao(variaveis)
+  } else {
+    stop("Uso: sd -v <vetor,...>")
+  }
+} else if (comando == "summary") {
+  sumario()
+} else if (comando == "lm") {
+  modeloLinear()
+} else {
+  stop("Comando inválido.")
+}

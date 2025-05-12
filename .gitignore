@@ -1,0 +1,13 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+
+/data/*
+!/data/.gitkeep
+
+/temp/*
+!/temp/.gitkeep
+
+/work/*
+!/work/.gitkeep

@@ -13,11 +13,7 @@ dir_base <- get_script_path()
 
 # Carrega sources
 source(file.path(dir_base, "conf", "config.R"))
-source(file.path(dir_base, "lib", "comandos.R"))
-source(file.path(dir_base, "lib", "desvioPadrao.R"))
-source(file.path(dir_base, "lib", "amostra.R"))
-source(file.path(dir_base, "lib", "sumario.R"))
-source(file.path(dir_base, "lib", "modelo.R"))
+
 
 # Ações conforme o comando
 if (comando == "sample") {
@@ -36,6 +32,20 @@ if (comando == "sample") {
     desvio_padrao(variaveis)
   } else {
     stop("Uso: sd -v <vetor,...>")
+  }
+} else if (comando == "bp") {
+  if (!is.null(flags[["-v"]])) {
+    variaveis <- strsplit(flags[["-v"]], ",")[[1]]
+    boxplot(variaveis)
+  } else {
+    stop("Uso: bp -v <vetor,...>")
+  }
+} else if (comando == "anova") {
+  if (!is.null(flags[["-v"]])) {
+    variaveis <- strsplit(flags[["-v"]], ",")[[1]]
+    anova(variaveis)
+  } else {
+    stop("Uso: anova_renda -v <nota1,nota2,...>")
   }
 } else if (comando == "summary") {
   sumario()

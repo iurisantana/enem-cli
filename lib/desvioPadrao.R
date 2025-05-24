@@ -28,7 +28,6 @@ desvio_padrao <- function(variaveis) {
              border = "white",
              freq = FALSE)
         
-        # Linhas de média e desvio padrão
         abline(v = media, col = "red", lwd = 2)
         abline(v = media + sd_val, col = "blue", lty = 2, lwd = 2)
         abline(v = media - sd_val, col = "blue", lty = 2, lwd = 2)

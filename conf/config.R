@@ -1,4 +1,17 @@
-# Caminhos globais
+# Verifica e instala pacotes necessários
+pacotes_necessarios <- c("data.table", "ggplot2")
+
+instalar_pacotes <- function(pacotes) {
+  pacotes_faltando <- pacotes[!(pacotes %in% installed.packages()[, "Package"])]
+  if (length(pacotes_faltando) > 0) {
+    message("Instalando pacotes: ", paste(pacotes_faltando, collapse = ", "))
+    install.packages(pacotes_faltando, repos = "https://cloud.r-project.org")
+  }
+}
+
+instalar_pacotes(pacotes_necessarios)
+
+# Setar alguns caminhos e carregar as sources/libs
 dir_base <- dirname(dirname(normalizePath(sys.frame(1)$ofile)))
 path_data <- file.path(dir_base, "data")
 path_temp <- file.path(dir_base, "temp")

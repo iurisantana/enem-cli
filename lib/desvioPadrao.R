@@ -1,11 +1,11 @@
 desvio_padrao <- function(variaveis) {
   tryCatch(
     {
-      if (!file.exists(path_temp)) {
-        stop("Arquivo não encontrado em: ", path_temp)
+      if (!file.exists(file.path(path_temp, "amostra_enem.rds"))) {
+        stop("Arquivo não encontrado em: ", file.path(path_temp, "amostra_enem.rds"))
       }
       
-      amostra <- readRDS(path_temp)
+      amostra <- readRDS(file.path(path_temp, "amostra_enem.rds"))
       
       variaveis_numericas <- variaveis[sapply(amostra[, variaveis], is.numeric)]
       

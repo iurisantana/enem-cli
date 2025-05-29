@@ -1,8 +1,8 @@
 sumario <- function() {
   tryCatch(
     {
-      if (!file.exists(path_temp)) stop("Arquivo de amostra não encontrado.")
-      AMOSTRA <- readRDS(path_temp)
+      if (!file.exists(file.path(path_temp, "amostra_enem.rds"))) stop("Arquivo de amostra não encontrado.")
+      AMOSTRA <- readRDS(file.path(path_temp, "amostra_enem.rds"))
       print(summary(AMOSTRA))
     },
     error = function(e) {

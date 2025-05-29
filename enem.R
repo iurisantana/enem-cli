@@ -18,13 +18,11 @@ source(file.path(dir_base, "conf", "config.R"))
 # Ações conforme o comando
 if (comando == "sample") {
   if (!is.null(flags[["-f"]])) {
-    if(!is.null(flags[["-p"]])){
-      amostra(file.path(path_data, flags[["-f"]]), flags[["-p"]])
-    }else{
-      amostra(file.path(path_data, flags[["-f"]]))
-    }
+    percent <- if (!is.null(flags[["-p"]])) flags[["-p"]] else 1
+    seed <- if (!is.null(flags[["-s"]])) flags[["-s"]] else NULL
+    amostra(file.path(path_data, flags[["-f"]]), percent = percent, seed = seed)
   } else {
-    stop("Uso: sample -f <arquivo> -p <percentual>")
+    stop("Uso: sample -f <arquivo> [-p <percentual>] [-s <seed>]")
   }
 } else if (comando == "sd") {
   if (!is.null(flags[["-v"]])) {

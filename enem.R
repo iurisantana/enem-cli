@@ -41,11 +41,12 @@ if (comando == "sample") {
     stop("Uso: bp -v <vetor,...>")
   }
 } else if (comando == "anova") {
-  if (!is.null(flags[["-v"]])) {
+  if (!is.null(flags[["-v"]]) && !is.null(flags[["-c"]])) {
     variaveis <- strsplit(flags[["-v"]], ",")[[1]]
-    anova(variaveis)
+    comparar <- flags[["-c"]]
+    anova(variaveis, comparar)
   } else {
-    stop("Uso: anova_renda -v <nota1,nota2,...>")
+    stop("Uso: anova -v <valor2,valor2,...> -c <comparar>")
   }
 } else if (comando == "summary") {
   sumario()

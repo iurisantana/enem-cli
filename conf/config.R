@@ -1,4 +1,3 @@
-# Verifica e instala pacotes necessários
 pacotes_necessarios <- c("data.table", "ggplot2")
 
 instalar_pacotes <- function(pacotes) {
@@ -11,7 +10,6 @@ instalar_pacotes <- function(pacotes) {
 
 instalar_pacotes(pacotes_necessarios)
 
-# Setar alguns caminhos e carregar as sources/libs
 dir_base <- dirname(dirname(normalizePath(sys.frame(1)$ofile)))
 path_data <- file.path(dir_base, "data")
 path_temp <- file.path(dir_base, "temp")

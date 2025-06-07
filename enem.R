@@ -1,6 +1,5 @@
 #!/usr/bin/env Rscript
 
-# Função segura para descobrir caminho base
 get_script_path <- function() {
   args_full <- commandArgs(trailingOnly = FALSE)
   file_arg <- "--file="
@@ -11,11 +10,8 @@ get_script_path <- function() {
 
 dir_base <- get_script_path()
 
-# Carrega sources
 source(file.path(dir_base, "conf", "config.R"))
 
-
-# Ações conforme o comando
 if (comando == "sample") {
   if (!is.null(flags[["-f"]])) {
     percent <- if (!is.null(flags[["-p"]])) flags[["-p"]] else 1

@@ -14,7 +14,6 @@ anova <- function(variaveis, comparar) {
     }
     
     amostra <- amostra[!is.na(amostra[[comparar]]), ]
-    
     if (nrow(amostra) == 0) {
       stop("Nenhum dado válido após filtrar a variável de classe: ", comparar)
     }
@@ -33,30 +32,40 @@ anova <- function(variaveis, comparar) {
         next
       }
       
+      media_geral <- mean(dados_plot$NOTA, na.rm = TRUE)
+      
+      medias_por_grupo <- tapply(dados_plot$NOTA, dados_plot$CLASSE, mean, na.rm = TRUE)
+      
+      cores <- ifelse(medias_por_grupo > media_geral, "lightblue", "aliceblue")
+      
       boxplot_args <- list(
         formula = NOTA ~ CLASSE,
         data = dados_plot,
-        main = paste("Notas em", var, "\n(n =", nrow(dados_plot), ")"),
+        main = paste("Notas em", var, "\n(Total de análises =", nrow(dados_plot), ")"),
         xlab = comparar,
         ylab = "Nota",
-        col = "lightblue",
+        col = cores[as.character(levels(dados_plot$CLASSE))],
         las = 2,
         ylim = range(dados_plot$NOTA, na.rm = TRUE)
       )
       
       do.call(graphics::boxplot, boxplot_args)
       
-      if (length(unique(dados_plot$CLASSE)) > 1) {
-        anova_result <- aov(NOTA ~ CLASSE, data = dados_plot)
-        p_valor <- summary(anova_result)[[1]]$"Pr(>F)"[1]
-        legend("topright", 
-               legend = paste("p =", format.pval(p_valor, digits = 3)),
-               bty = "n")
-      }
+      abline(h = media_geral, col = "red", lty = 2, lwd = 2)
+      
+      legend("topright", 
+             legend = c("Acima da média", "Abaixo da média", "Média geral"),
+             fill = c("lightblue", "aliceblue", NA),
+             border = c("black", "black", NA),
+             lty = c(NA, NA, 2),
+             col = c(NA, NA, "red"),
+             lwd = c(NA, NA, 2),
+             bty = "o",
+             bg = "gray95")
     }
     
     dev.off()
-    message("Análise ANOVA salva em: ", file.path(path_work, "anova.pdf"))
+    message("Análise ANOVA com destaque por grupo salva em: ", file.path(path_work, "anova.pdf"))
     
   }, error = function(e) {
     message("Erro: ", e$message)

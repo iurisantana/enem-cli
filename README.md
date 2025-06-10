@@ -147,7 +147,11 @@ Rscript enem.R bp -v NU_NOTA_LC
 
 ## 👤 Autor(s)
 
-Iuri Santana Goes da Silva
+Aoued Mekki
+Iuri Santana
+Jefferson Luiz
+Gabriel Baraúna 
+Paulo Moabe
 
 
 Desenvolvido para facilitar a análise exploratória de dados do ENEM por linha de comando.

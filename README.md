@@ -148,9 +148,13 @@ Rscript enem.R bp -v NU_NOTA_LC
 ## 👤 Autor(s)
 
 Aoued Mekki
+
 Iuri Santana
+
 Jefferson Luiz
+
 Gabriel Baraúna 
+
 Paulo Moabe
 
 
